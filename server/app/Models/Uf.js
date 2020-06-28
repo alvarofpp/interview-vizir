@@ -9,6 +9,10 @@ class Uf extends Model {
     this.addTrait('NoTimestamp')
   }
 
+  static get table () {
+    return 'ufs'
+  }
+
   static get primaryKey() {
     return 'sigla'
   }

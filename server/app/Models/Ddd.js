@@ -9,6 +9,10 @@ class Ddd extends Model {
     this.addTrait('NoTimestamp')
   }
 
+  static get table () {
+    return 'ddds'
+  }
+
   static get primaryKey() {
     return 'numero'
   }

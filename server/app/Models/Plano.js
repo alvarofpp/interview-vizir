@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Plano extends Model {
+  static get table () {
+    return 'planos'
+  }
+
   static get visible() {
     return ['id', 'nome', 'minutos', 'taxa', 'grupo',]
   }

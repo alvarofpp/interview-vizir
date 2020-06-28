@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Tarifa extends Model {
+  static get table () {
+    return 'tarifas'
+  }
+
   static get visible() {
     return ['preco', 'ddd_origem', 'ddd_destino',]
   }
