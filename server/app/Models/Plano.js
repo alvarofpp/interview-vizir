@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Plano extends Model {
   static get visible() {
-    return ['nome', 'minutos', 'taxa', 'grupo',]
+    return ['id', 'nome', 'minutos', 'taxa', 'grupo',]
   }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // @material-ui/core components
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -13,6 +13,8 @@ import styles from "../../../assets/jss/material-kit-react/views/landingPageSect
 import classNames from "classnames";
 
 import phoneImg from "../../../assets/img/phone-cut.png";
+import ApiService from "../../../utils/ApiService";
+import PopUp from "../../../utils/PopUp";
 
 const useStyles = makeStyles(styles);
 
@@ -23,6 +25,16 @@ export default function PlanSection() {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
+
+  const [planos, setPlanos] = useState([]);
+  if (!planos.length) {
+    ApiService.planos
+      .index('FaleMais')
+      .then((res) => {
+        setPlanos(res);
+      }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
+  }
+
   return (
     <div className={classes.section} id='plans'>
       <GridContainer justify="center">
@@ -40,24 +52,14 @@ export default function PlanSection() {
           <img src={phoneImg} alt="..." className={imageClasses} width='40%'/>
         </GridItem>
         <GridItem xs={12} sm={5} md={5}>
-          <InfoArea style={{textAlign: 'left'}}
-            title="FaleMais 30"
-            description="Com o FaleMais 30 você pode conversar por até 30 minutos de graça."
-            icon={PermPhoneMsg}
-            iconColor="info"
-          />
-          <InfoArea className={classes.custom_h4}
-            title="FaleMais 60"
-            description="Com o FaleMais 60 você pode conversar por até 60 minutos de graça."
-            icon={PermPhoneMsg}
-            iconColor="info"
-          />
-          <InfoArea
-            title="FaleMais 90"
-            description="Com o FaleMais 90 você pode conversar por até 90 minutos de graça."
-            icon={PermPhoneMsg}
-            iconColor="info"
-          />
+          {planos.map((plano) => (
+            <InfoArea key={`plano-`+plano.id}
+                      title={plano.nome}
+                      description={`Com o ${plano.nome} você pode conversar por até ${plano.minutos} minutos de graça.`}
+                      icon={PermPhoneMsg}
+                      iconColor="info"
+            />
+          ))}
         </GridItem>
       </GridContainer>
     </div>

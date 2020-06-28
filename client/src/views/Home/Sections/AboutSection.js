@@ -37,7 +37,7 @@ export default function AboutSection() {
           <GridItem xs={12} sm={12} md={6}>
             <InfoArea
               title="FALE MAIS"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              description="Nullam nec enim a mauris condimentum aliquam. Cras ultrices purus in scelerisque blandit. Ut in neque erat."
               icon={PermPhoneMsg}
               iconColor="info"
               vertical
@@ -46,7 +46,7 @@ export default function AboutSection() {
           <GridItem xs={12} sm={12} md={6}>
             <InfoArea
               title="ECONOMIZE"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              description="Mauris sed ligula et risus ultricies rutrum congue quis dui. Aenean in sagittis felis. Suspendisse pretium lacus eget sagittis lacinia."
               icon={LocalAtm}
               iconColor="success"
               vertical

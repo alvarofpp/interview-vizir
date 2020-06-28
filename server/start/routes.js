@@ -28,4 +28,4 @@ Route.get('/ddds', 'DddController.index');
 Route.get('/tarifas', 'TarifaController.index');
 
 // Planos
-Route.get('/planos', 'PlanosController.index');
+Route.get('/planos', 'PlanoController.index');
