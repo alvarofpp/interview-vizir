@@ -26,6 +26,7 @@ Route.get('/ddds', 'DddController.index');
 
 // Tarifas
 Route.get('/tarifas', 'TarifaController.index');
+Route.get('tarifas/ddds', 'TarifaController.getDdds');
 
 // Planos
 Route.get('/planos', 'PlanoController.index');

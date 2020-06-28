@@ -14,6 +14,9 @@ const ApiService = {
   planos: {
     index: (group) => consomeApi(`planos?group=${group}`, 'GET')
   },
+  tarifas: {
+    getDdds: (field, where={}) => consomeApi(`tarifas/ddds?field=${field}&where=${JSON.stringify(where)}`, 'GET')
+  },
   listaAutores: () => consomeApi('/autor'),
   criaAutor: (autor) => consomeApi('/autor', 'POST', autor),
   listaNomes: () => consomeApi('/autor/nome'),
