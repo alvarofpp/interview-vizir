@@ -17,8 +17,7 @@ import Select from '@material-ui/core/Select';
 import styles from "../../../assets/jss/material-kit-react/views/landingPageSections/calcStyle.js";
 import ApiService from "../../../utils/ApiService";
 import PopUp from "../../../utils/PopUp";
-import InfoArea from "../../../components/InfoArea/InfoArea";
-import {PermPhoneMsg} from "@material-ui/icons";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(styles);
 
@@ -33,7 +32,11 @@ export default function CalcSection() {
 
   useEffect(() => {
     if (options.codigo_origem !== '') {
-      updateCidadeDestinoSelect();
+      ApiService.tarifas
+        .getDdds('ddd_destino', {field: 'ddd_origem', value: options.codigo_origem})
+        .then((res) => {
+          setCidadeDestinoSelect(res);
+        }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
     }
   }, [options.codigo_origem]);
 
@@ -60,19 +63,11 @@ export default function CalcSection() {
       }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
   }
 
-  const updateCidadeDestinoSelect = () => {
-    ApiService.tarifas
-      .getDdds('ddd_destino', {field: 'ddd_origem', value: options.codigo_origem})
-      .then((res) => {
-        setCidadeDestinoSelect(res);
-      }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
-  }
-
   if (!planoSelect.length) {
     ApiService.planos
       .index('FaleMais')
       .then((res) => {
-        //setPlanoSelect(res);
+        setPlanoSelect(res);
       }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
   }
 
@@ -88,7 +83,7 @@ export default function CalcSection() {
           </h4>
           <form>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={6} className={classes.formPaddingTopDefault}>
                 <FormControl className={classes.formControlFullWidth}>
                   <InputLabel id="codigo_origem_label">
                     Código da cidade de origem
@@ -109,7 +104,7 @@ export default function CalcSection() {
                   </Select>
                 </FormControl>
               </GridItem>
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={6} className={classes.formPaddingTopDefault}>
                 <FormControl className={classes.formControlFullWidth}>
                   <InputLabel id="codigo_destino_label">
                     Código da cidade de destino
@@ -130,7 +125,46 @@ export default function CalcSection() {
                   </Select>
                 </FormControl>
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem xs={12} sm={12} md={6} className={classes.formPaddingTopDefault}>
+                <TextField
+                  label="Minutos"
+                  id="minutos"
+                  name="minutos"
+                  type="number"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    min: 0,
+                    step: 1,
+                  }}
+                  style={{
+                    width: '100%'
+                  }}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={6} className={classes.formPaddingTopDefault}>
+                <FormControl className={classes.formControlFullWidth}>
+                  <InputLabel id="plano_label">
+                    Plano FaleMais
+                  </InputLabel>
+                  <Select
+                    labelId="plano_label"
+                    id="plano_id"
+                    name="plano_id"
+                    value={options.plano_id}
+                    onChange={handleChangeOptions}
+                  >
+                    {planoSelect.map((plano) => (
+                      <MenuItem key={`plano_id-${plano.id}`}
+                                value={plano.id}>
+                        {plano.nome}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4} className={classes.formPaddingTopDefault}>
                 <Button color="primary">Calcular</Button>
               </GridItem>
             </GridContainer>

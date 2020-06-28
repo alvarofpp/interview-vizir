@@ -21,6 +21,9 @@ const workStyle = {
   },
   formControlFullWidth: {
     width: "100%"
+  },
+  formPaddingTopDefault: {
+    paddingTop: "12px"
   }
 };
 
