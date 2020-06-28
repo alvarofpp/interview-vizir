@@ -15,7 +15,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { Dashboard, ViewList, Apps } from "@material-ui/icons";
 
 // core components
-import CustomDropdown from "../CustomDropdown/CustomDropdown.js";
 import Button from "../CustomButtons/Button.js";
 
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";

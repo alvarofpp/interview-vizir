@@ -55,7 +55,7 @@ export default function PlanSection() {
           {planos.map((plano) => (
             <InfoArea key={`plano-`+plano.id}
                       title={plano.nome}
-                      description={`Com o ${plano.nome} você pode conversar por até ${plano.minutos} minutos de graça.`}
+                      description={`Com o ${plano.nome} você pode conversar até ${plano.minutos} minutos de graça.`}
                       icon={PermPhoneMsg}
                       iconColor="info"
             />

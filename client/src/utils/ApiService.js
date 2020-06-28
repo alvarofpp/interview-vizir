@@ -1,6 +1,6 @@
 const urlBase = 'http://localhost:3333/';
-const consomeApi = (parametro = '/', method = 'GET', body) => {
-  return fetch(`${urlBase}${parametro}`, {
+const consomeApi = (uri = '', method = 'GET', body) => {
+  return fetch(`${urlBase}${uri}`, {
     method,
     headers: {
       'content-type': 'application/json',
@@ -17,11 +17,7 @@ const ApiService = {
   tarifas: {
     getDdds: (field, where={}) => consomeApi(`tarifas/ddds?field=${field}&where=${JSON.stringify(where)}`, 'GET')
   },
-  listaAutores: () => consomeApi('/autor'),
-  criaAutor: (autor) => consomeApi('/autor', 'POST', autor),
-  listaNomes: () => consomeApi('/autor/nome'),
-  listaLivros: () => consomeApi('/autor/livro'),
-  removeAutor: (id) => consomeApi(`/autor/${id}`, 'DELETE'),
+  simulacao: (inputs) => consomeApi('simulacao', 'POST', JSON.stringify(inputs)),
 
   handleErrors: (res) => {
     if (!res.ok) {

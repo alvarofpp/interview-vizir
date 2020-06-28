@@ -24,7 +24,15 @@ const workStyle = {
   },
   formPaddingTopDefault: {
     paddingTop: "12px"
-  }
+  },
+  valorPlanos: {
+    ...title,
+    marginBottom: "0px",
+    marginTop: "0px",
+    minHeight: "32px",
+    textDecoration: "none",
+    textAlign: "center"
+  },
 };
 
 export default workStyle;
