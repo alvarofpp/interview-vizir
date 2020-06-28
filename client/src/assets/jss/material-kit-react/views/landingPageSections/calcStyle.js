@@ -1,6 +1,6 @@
-import { title } from "../../../material-kit-react.js";
+import {title} from "../../../material-kit-react.js";
 
-const workStyle = {
+const calcStyle = {
   section: {
     padding: "70px 0"
   },
@@ -35,4 +35,4 @@ const workStyle = {
   },
 };
 
-export default workStyle;
+export default calcStyle;

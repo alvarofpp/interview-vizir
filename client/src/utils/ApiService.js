@@ -1,5 +1,6 @@
+// API's data
 const urlBase = 'http://localhost:3333/';
-const consomeApi = (uri = '', method = 'GET', body) => {
+const consumesApi = (uri = '', method = 'GET', body) => {
   return fetch(`${urlBase}${uri}`, {
     method,
     headers: {
@@ -10,14 +11,15 @@ const consomeApi = (uri = '', method = 'GET', body) => {
     .then((res) => res.json());
 };
 
+// API's routes
 const ApiService = {
   planos: {
-    index: (group) => consomeApi(`planos?group=${group}`, 'GET')
+    index: (group) => consumesApi(`planos?group=${group}`, 'GET')
   },
   tarifas: {
-    getDdds: (field, where={}) => consomeApi(`tarifas/ddds?field=${field}&where=${JSON.stringify(where)}`, 'GET')
+    getDdds: (field, where = {}) => consumesApi(`tarifas/ddds?field=${field}&where=${JSON.stringify(where)}`, 'GET')
   },
-  simulacao: (inputs) => consomeApi('simulacao', 'POST', JSON.stringify(inputs)),
+  simulacao: (inputs) => consumesApi('simulacao', 'POST', JSON.stringify(inputs)),
 
   handleErrors: (res) => {
     if (!res.ok) {

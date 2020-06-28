@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+
 // @material-ui/core components
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -14,11 +15,13 @@ import GridContainer from "../../../components/Grid/GridContainer.js";
 import GridItem from "../../../components/Grid/GridItem.js";
 import Button from "../../../components/CustomButtons/Button.js";
 
-// Others
+// styles
 import styles from "../../../assets/jss/material-kit-react/views/landingPageSections/calcStyle.js";
+
+// others
 import ApiService from "../../../utils/ApiService";
-import PopUp from "../../../utils/PopUp";
 import Toast from "../../../components/Toast/Toast";
+
 
 const useStyles = makeStyles(styles);
 
@@ -43,7 +46,7 @@ export default function CalcSection() {
             ...inputs,
             codigo_destino: '',
           });
-        }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
+        }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
     }
   }, [inputs.codigo_origem]);
 
@@ -65,7 +68,7 @@ export default function CalcSection() {
       .getDdds('ddd_origem')
       .then((res) => {
         setCidadeOrigemSelect(res);
-      }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
+      }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   }
 
   if (!planoSelect.length) {
@@ -73,7 +76,7 @@ export default function CalcSection() {
       .index('FaleMais')
       .then((res) => {
         setPlanoSelect(res);
-      }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
+      }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   }
 
   // Simulação
@@ -96,7 +99,7 @@ export default function CalcSection() {
     ApiService.simulacao(inputs)
       .then((res) => {
         setSimulacao(res);
-      }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
+      }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   };
 
   const [toast, setToast] = useState({

@@ -1,16 +1,14 @@
 import React from "react";
-// nodejs library to set properties for components
 import PropTypes from "prop-types";
-// nodejs library that concatenates classes
 import classNames from "classnames";
 
 // @material-ui/core components
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
 
-// core components
-
+// styles
 import buttonStyle from "../../assets/jss/material-kit-react/components/buttonStyle.js";
+
 
 const makeComponentStyles = makeStyles(() => ({
   ...buttonStyle

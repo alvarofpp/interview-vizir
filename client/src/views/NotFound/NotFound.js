@@ -1,5 +1,8 @@
 import React, {Fragment} from "react";
+
+// template components
 import Header from "../../components/Header/Header";
+
 
 const NotFound = () => {
     return (

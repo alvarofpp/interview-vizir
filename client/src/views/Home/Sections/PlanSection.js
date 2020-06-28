@@ -1,20 +1,24 @@
 import React, {useState} from "react";
+
 // @material-ui/core components
 import {makeStyles} from "@material-ui/core/styles";
 
 // @material-ui/icons
 import {PermPhoneMsg} from "@material-ui/icons";
+
 // core components
 import GridContainer from "../../../components/Grid/GridContainer.js";
 import GridItem from "../../../components/Grid/GridItem.js";
 import InfoArea from "../../../components/InfoArea/InfoArea.js";
 
+// styles
 import styles from "../../../assets/jss/material-kit-react/views/landingPageSections/planStyle.js";
 import classNames from "classnames";
 
+// others
 import phoneImg from "../../../assets/img/phone-cut.png";
 import ApiService from "../../../utils/ApiService";
-import PopUp from "../../../utils/PopUp";
+
 
 const useStyles = makeStyles(styles);
 
@@ -32,7 +36,7 @@ export default function PlanSection() {
       .index('FaleMais')
       .then((res) => {
         setPlanos(res);
-      }).catch((err) => PopUp.exibeMensagem('error', 'Erro na comunicação com a API.'));
+      }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   }
 
   return (
@@ -53,7 +57,7 @@ export default function PlanSection() {
         </GridItem>
         <GridItem xs={12} sm={5} md={5}>
           {planos.map((plano) => (
-            <InfoArea key={`plano-`+plano.id}
+            <InfoArea key={`plano-` + plano.id}
                       title={plano.nome}
                       description={`Com o ${plano.nome} você pode conversar até ${plano.minutos} minutos de graça.`}
                       icon={PermPhoneMsg}

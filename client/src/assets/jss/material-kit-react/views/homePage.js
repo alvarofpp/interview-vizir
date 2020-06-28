@@ -1,6 +1,6 @@
-import { container, title } from "../../material-kit-react";
+import {container, title} from "../../material-kit-react";
 
-const landingPageStyle = {
+const homePageStyle = {
   container: {
     zIndex: "12",
     color: "#FFFFFF",
@@ -33,4 +33,4 @@ const landingPageStyle = {
   }
 };
 
-export default landingPageStyle;
+export default homePageStyle;
