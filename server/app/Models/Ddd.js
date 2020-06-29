@@ -26,11 +26,15 @@ class Ddd extends Model {
   }
 
   uf () {
-    return this.belongsTo('App/Models/Uf', 'sigla', 'uf_sigla')
+    return this.belongsTo('App/Models/Uf', 'uf_sigla', 'sigla')
   }
 
-  tarifas () {
-    return this.hasMany('App/Models/Tarifa', 'numero', 'ddd_numero')
+  tarifas_origem () {
+    return this.hasMany('App/Models/Tarifa', 'numero', 'ddd_origem')
+  }
+
+  tarifas_destino () {
+    return this.hasMany('App/Models/Tarifa', 'numero', 'ddd_destino')
   }
 }
 

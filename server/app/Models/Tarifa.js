@@ -13,11 +13,11 @@ class Tarifa extends Model {
   }
 
   origem () {
-    return this.belongsTo('App/Models/Ddd', 'numero', 'ddd_origem')
+    return this.belongsTo('App/Models/Ddd', 'ddd_origem', 'numero')
   }
 
   destino () {
-    return this.belongsTo('App/Models/Ddd', 'numero', 'ddd_destino')
+    return this.belongsTo('App/Models/Ddd', 'ddd_destino', 'numero')
   }
 }
 

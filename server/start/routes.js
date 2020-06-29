@@ -35,7 +35,13 @@ Route.resource('ddds', 'DddController')
 // Tarifas
 Route.resource('tarifas', 'TarifaController')
   .apiOnly()
-  .except(['show']);
+  .validator(new Map([
+    [['tarifas.index'], ['Tarifa/IndexRequest']],
+    [['tarifas.store'], ['Tarifa/StoreRequest']],
+    [['tarifas.show'], ['Tarifa/ShowRequest']],
+    [['tarifas.update'], ['Tarifa/UpdateRequest']],
+    [['tarifas.destroy'], ['Tarifa/DestroyRequest']],
+  ]));
 Route.get('/tarifas/ddds', 'TarifaController.getDdds');
 
 // Planos

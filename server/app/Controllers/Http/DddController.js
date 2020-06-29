@@ -6,7 +6,9 @@ const ResponsePattern = use('App/Helpers/ResponsePattern')
 
 class DddController {
   async index({request, response}) {
-    const ddds = await Ddd.all()
+    const ddds = await Database
+      .table(Ddd.table)
+      .orderBy(Ddd.primaryKey)
     return ResponsePattern.data(ddds)
   }
 
@@ -22,42 +24,41 @@ class DddController {
     trx.commit()
 
     return ResponsePattern.success({
-      message: 'DDD salvo com sucesso!',
+      message: 'DDD registrado com sucesso!',
       data: ddd,
     })
   }
 
-  show({request, response}) {
+  async show({request, response}) {
     const params = request.params
-    return ResponsePattern.data(Ddd.find(params.id))
+    const ddd = await Ddd.find(params.id)
+    await ddd.loadMany(['uf', 'tarifas_origem', 'tarifas_destino'])
+
+    return ResponsePattern.data(ddd)
   }
 
   async update({request, response}) {
     const body = request.all()
     const params = request.params
 
-    const update = await Database
+    await Database
       .table(Ddd.table)
       .where(Ddd.primaryKey, params.id)
       .update(body)
 
-    if (update) {
-      const id = 'numero' in Object.keys(body) ? body.numero : params.id
-      return ResponsePattern.success({
-        message: 'DDD atualizado com sucesso.',
-        data: Ddd.find(id)
-      })
-    }
+    const id = Object.keys(body).includes('numero') ? body.numero : params.id
+    const ddd = await Ddd.find(id)
 
-    return ResponsePattern.error({
-      message: `Ocorreu um erro durante a atualização do DDD ${params.id}.`,
-      error: {}
+    return ResponsePattern.success({
+      message: 'DDD atualizado com sucesso.',
+      data: ddd
     })
   }
 
   async destroy({request, response}) {
     const params = request.params
-    const destroy = await Ddd.find(params.id).delete()
+    const ddd = await Ddd.find(params.id)
+    const destroy = await ddd.delete()
 
     if (destroy) {
       return ResponsePattern.success({
