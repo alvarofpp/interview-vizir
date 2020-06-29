@@ -1,54 +1,77 @@
 'use strict'
 
 const Plano = use('App/Models/Plano')
+const Database = use('Database')
+const ResponsePattern = use('App/Helpers/ResponsePattern')
 
 class PlanoController {
-  index({request, response}) {
+  async index({request, response}) {
     const params = request.get()
     var group = null
 
     if ('group' in params) {
       group = params.group
     }
-
-    return Plano.query()
+    const planos = await Plano.query()
       .where('grupo', group)
       .orderBy('minutos')
+      .setVisible([...['id', 'created_at', 'updated_at'], ...Plano.visible])
+      .orderBy('id')
       .fetch()
+
+    return ResponsePattern.data(planos)
   }
 
-  store({request, response}) {
+  async store({request, response}) {
+    const trx = await Database.beginTransaction()
     const body = request.all()
-    const ddd = new Ddd()
+    const plano = new Plano()
 
-    Ddd.visible.forEach((field) => {
-      ddd[field] = body[field]
+    Plano.visible.forEach((field) => {
+      plano[field] = body[field]
     })
+    await plano.save(trx)
+    trx.commit()
 
-    return ddd.save()
+    return ResponsePattern.success({
+      message: 'Plano registrado com sucesso!',
+      data: plano,
+    })
   }
 
-  show({request, response}) {
+  async show({request, response}) {
     const params = request.params
-    return Ddd.find(params.id)
+    const plano = await Plano.find(params.id)
+
+    return ResponsePattern.data(plano)
   }
 
   async update({request, response}) {
     const body = request.all()
     const params = request.params
-    const ddd = await Ddd.find(params.id)
+    const plano = await Plano.find(params.id)
     const Intersection = use('App/Helpers/Intersection')
 
-    Intersection.array(Object.keys(body), Ddd.visible)
+    Intersection.array(Object.keys(body), Plano.visible)
       .forEach((field) => {
-        ddd[field] = body[field]
+        plano[field] = body[field]
       })
+    await plano.save()
 
-    return ddd.save()
+    return ResponsePattern.success({
+      message: `Plano ${plano.nome} atualizado com sucesso.`,
+      data: plano
+    })
   }
 
-  destroy({request, response}) {
-    return Ddd.all()
+  async destroy({request, response}) {
+    const params = request.params
+    const plano = await Plano.find(params.id)
+    await plano.delete()
+
+    return ResponsePattern.success({
+      message: `Plano ${plano.nome} apagado com sucesso.`
+    })
   }
 }
 

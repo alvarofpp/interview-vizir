@@ -19,7 +19,8 @@ const Route = use('Route')
 Route.on('/').render('welcome');
 
 // Ufs
-Route.get('ufs', 'UfController.index');
+Route.get('ufs', 'UfController.index')
+  .validator('Uf/IndexRequest');
 
 // Ddds
 Route.resource('ddds', 'DddController')
@@ -42,12 +43,19 @@ Route.resource('tarifas', 'TarifaController')
     [['tarifas.update'], ['Tarifa/UpdateRequest']],
     [['tarifas.destroy'], ['Tarifa/DestroyRequest']],
   ]));
-Route.get('/tarifas/ddds', 'TarifaController.getDdds');
+Route.get('/tarifas_ddds', 'TarifaController.getDdds');
 
 // Planos
 Route.resource('planos', 'PlanoController')
   .apiOnly()
-  .except(['show']);
+  .validator(new Map([
+    [['planos.index'], ['Plano/IndexRequest']],
+    [['planos.store'], ['Plano/StoreRequest']],
+    [['planos.show'], ['Plano/ShowRequest']],
+    [['planos.update'], ['Plano/UpdateRequest']],
+    [['planos.destroy'], ['Plano/DestroyRequest']],
+  ]));
 
 // Simulação
 Route.post('/simulacao', 'SimulacaoController.simular')
+  .validator('Simulacao/SimularRequest');

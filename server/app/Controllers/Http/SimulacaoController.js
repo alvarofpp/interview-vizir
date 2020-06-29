@@ -2,6 +2,7 @@
 
 const Tarifa = use('App/Models/Tarifa')
 const Plano = use('App/Models/Plano')
+const ResponsePattern = use('App/Helpers/ResponsePattern')
 
 class SimulacaoController {
   async simular({request, response}) {
@@ -16,10 +17,10 @@ class SimulacaoController {
     const plano = await Plano.find(body.plano_id)
 
     if (!tarifa || !plano) {
-      return {
+      return ResponsePattern.data({
         sem_plano: '-',
         com_plano: '-',
-      }
+      })
     }
 
     // Calculo
@@ -28,10 +29,10 @@ class SimulacaoController {
       valorComPlano = (body.minutos - plano.minutos) * (tarifa.preco * plano.taxa)
     }
 
-    return {
+    return ResponsePattern.data({
       sem_plano: (body.minutos * tarifa.preco).toFixed(2),
       com_plano: valorComPlano.toFixed(2),
-    }
+    })
   }
 }
 

@@ -9,7 +9,7 @@ class Plano extends Model {
   }
 
   static get visible() {
-    return ['id', 'nome', 'minutos', 'taxa', 'grupo',]
+    return ['nome', 'minutos', 'taxa', 'grupo',]
   }
 }
 

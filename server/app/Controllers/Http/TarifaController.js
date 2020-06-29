@@ -61,11 +61,11 @@ class TarifaController {
     await tarifa.delete()
 
     return ResponsePattern.success({
-      message: `Tarifa de ${tarifa.ddd_origem} para ${tarifa.ddd_destino} apagado com sucesso.`
+      message: `Tarifa de ${tarifa.ddd_origem} para ${tarifa.ddd_destino} apagada com sucesso.`
     })
   }
 
-  getDdds({request, response}) {
+  async getDdds({request, response}) {
     const params = request.get()
     const where = JSON.parse(params.where)
 
@@ -77,8 +77,9 @@ class TarifaController {
     if (Object.keys(where).length > 0) {
       query = query.where(where.field, where.value)
     }
+    const ddds = await query.fetch()
 
-    return query.fetch()
+    return ResponsePattern.data(ddds)
   }
 }
 
