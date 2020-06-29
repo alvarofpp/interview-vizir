@@ -35,7 +35,7 @@ export default function PlanSection() {
     ApiService.planos
       .index('FaleMais')
       .then((res) => {
-        setPlanos(res);
+        setPlanos(res.data);
       }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   }
 

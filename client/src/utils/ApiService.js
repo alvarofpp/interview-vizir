@@ -17,7 +17,7 @@ const ApiService = {
     index: (group) => consumesApi(`planos?group=${group}`, 'GET')
   },
   tarifas: {
-    getDdds: (field, where = {}) => consumesApi(`tarifas/ddds?field=${field}&where=${JSON.stringify(where)}`, 'GET')
+    getDdds: (field, where = {}) => consumesApi(`tarifas_ddds?field=${field}&where=${JSON.stringify(where)}`, 'GET')
   },
   simulacao: (inputs) => consumesApi('simulacao', 'POST', JSON.stringify(inputs)),
 

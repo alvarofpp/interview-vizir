@@ -41,7 +41,7 @@ export default function CalcSection() {
       ApiService.tarifas
         .getDdds('ddd_destino', {field: 'ddd_origem', value: inputs.codigo_origem})
         .then((res) => {
-          setCidadeDestinoSelect(res);
+          setCidadeDestinoSelect(res.data);
           setInputs({
             ...inputs,
             codigo_destino: '',
@@ -67,7 +67,7 @@ export default function CalcSection() {
     ApiService.tarifas
       .getDdds('ddd_origem')
       .then((res) => {
-        setCidadeOrigemSelect(res);
+        setCidadeOrigemSelect(res.data);
       }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   }
 
@@ -75,7 +75,7 @@ export default function CalcSection() {
     ApiService.planos
       .index('FaleMais')
       .then((res) => {
-        setPlanoSelect(res);
+        setPlanoSelect(res.data);
       }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   }
 
@@ -98,7 +98,7 @@ export default function CalcSection() {
 
     ApiService.simulacao(inputs)
       .then((res) => {
-        setSimulacao(res);
+        setSimulacao(res.data);
       }).catch((err) => console.log('error', 'Erro na comunicação com a API.'));
   };
 
